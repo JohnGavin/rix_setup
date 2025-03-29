@@ -1,0 +1,10 @@
+# https://posit-dev.github.io/air/configuration.html#example-configuration
+line-width = 80
+indent-width = 2
+indent-style = "space"
+line-ending = "auto"
+persistent-line-breaks = true
+# https://posit-dev.github.io/air/configuration.html#exclude
+# exclude = ["file.R", "folder/", "files-like-*-this.R"].
+exclude = []
+default-exclude = true
