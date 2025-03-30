@@ -1,0 +1,1 @@
+# echo 'to help enforce --pure: do NOT call ~/.Rprofile i.e. call ./.Rprofile_empty instead'
