@@ -4,7 +4,15 @@
 # Apple Silicon computers.
 # Report any issues to https://github.com/ropensci/rix
 let
- pkgs = import (fetchTarball "https://github.com/rstats-on-nix/nixpkgs/archive/2025-03-03.tar.gz") { config.allowUnfree = true; };
+  # Calculate the sha256 using:
+  # nix-prefetch-url --unpack "https://github.com/rstats-on-nix/nixpkgs/archive/2025-03-03.tar.gz"
+  nixpkgs_src = fetchTarball {
+    url = "https://github.com/rstats-on-nix/nixpkgs/archive/2025-03-03.tar.gz";
+    # Replace the placeholder below with the actual hash you calculated!
+    sha256 = "1c7mb76w0qxv2gihblk42hlj08dqvmfyd4350j8in6v5kxp79p71";
+  };
+
+  pkgs = import nixpkgs_src { config.allowUnfree = true; };
 
   rpkgs = builtins.attrValues {
     inherit (pkgs.rPackages)
