@@ -1,0 +1,68 @@
+---
+params:
+    source_url: "https://nrennie.rbind.io/blog/observable-r-users/"
+execute:
+  echo: false
+---
+
+
+```{r library}
+library(targets)
+library(here)
+# tar_config_set(store = here::here("_targets"))
+```
+
+```{r tar_load}
+tar_load(tuesdata)
+tar_load(exped_tidy)
+tar_load(peaks_tidy)
+peaks_tidy
+```
+
+```{r}
+# source
+src_fld <- file.path("inst", "qmd")
+fn <- "ojs_observable-r"
+qmd_file <- here(src_fld, paste0(fn, ".qmd"))
+
+# GENERATED HTML
+# If next to source => Needs moving
+html_file <- here(src_fld, paste0(fn, ".html"))
+html_fldr <- here(src_fld, paste0(fn, "_files"))
+
+# does target directory for HTML exist
+html_dir <- dirname(html_file)
+if (!dir.exists(html_dir)) {
+  dir.create(html_dir, recursive = TRUE)
+  message("Created directory: ", html_dir)
+}
+
+# 2. Define Git variables
+commit_message <- "Render and update Observable JS QMD document"
+branch_name <- "main" # Or "master", or your default branch
+
+# --- Git Commands ---
+
+# 3. Check Git status (Optional, but good practice)
+message("--- Git Status ---")
+system("git status")
+
+# 4. Stage the files
+#    Use shQuote() to handle potential spaces or special characters in paths
+message("\n--- Staging Files ---")
+system(paste("git add", shQuote(qmd_file)))
+system(paste("git add", shQuote(html_fldr)))
+system(paste("git add", shQuote(html_file)))
+# Add any other related files if necessary (e.g., figures, data files committed)
+# system("git add path/to/other/file")
+
+# 5. Commit the changes
+message("\n--- Committing Files ---")
+system(paste("git commit -m", shQuote(commit_message)))
+
+# 6. Push to GitHub
+message("\n--- Pushing to GitHub ---")
+system(paste("git push origin", branch_name))
+
+message("\n--- Script Finished ---")
+```
