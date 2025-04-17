@@ -19,7 +19,9 @@ tar_load(peaks_tidy)
 peaks_tidy
 ```
 
-```{r}
+
+# gh pages
+```{r, eval = FALSE}
 # source
 src_fld <- file.path("inst", "qmd")
 fn <- "ojs_observable-r"
@@ -53,6 +55,13 @@ message("\n--- Staging Files ---")
 system(paste("git add", shQuote(qmd_file)))
 system(paste("git add", shQuote(html_fldr)))
 system(paste("git add", shQuote(html_file)))
+
+fld_docs <- here("docs")
+dir.create(here(fld_docs))
+file.create(here(fld_docs, ".nojekyll"))
+
+file.copy(html_file, fld_docs, overwrite = T) |> stopifnot("failed to copy to ./docs/" = _)
+system(paste("git add", shQuote(fld_docs)))
 # git rm default_sym.R
 # git push origin main # Or your default branch name
 
