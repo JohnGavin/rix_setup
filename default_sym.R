@@ -1,1 +1,0 @@
-/Users/johngavin/docs_gh/rix_setup/default.R
