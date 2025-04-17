@@ -53,6 +53,9 @@ message("\n--- Staging Files ---")
 system(paste("git add", shQuote(qmd_file)))
 system(paste("git add", shQuote(html_fldr)))
 system(paste("git add", shQuote(html_file)))
+# git rm default_sym.R
+# git push origin main # Or your default branch name
+
 # Add any other related files if necessary (e.g., figures, data files committed)
 # system("git add path/to/other/file")
 
